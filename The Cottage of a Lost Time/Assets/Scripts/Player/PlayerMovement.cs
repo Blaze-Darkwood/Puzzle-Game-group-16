@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private PlayerInputs input;
-    private Vector2 move = Vector2.zero;
+    private Vector3 move = Vector3.zero;
 
     private void Awake()
     {
@@ -19,12 +20,12 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void OnEnable()
+    private void OnEnable() // Enable input actions
     {
         input.Enable();
     }
 
-    private void OnDisable()
+    private void OnDisable() // Disable input actions
     {
         input.Disable();
     }
@@ -34,17 +35,23 @@ public class PlayerMovement : MonoBehaviour
         // Movement
         float speed = .5f;
 
-        if (rb.linearVelocity.magnitude + move.magnitude > maxSpeed)
+        if (rb.linearVelocity.magnitude + move.magnitude < maxSpeed)
             speed = moveSpeed;
 
         rb.AddRelativeForce(2 * speed * move);
-
-        // Ground check
     }
 
-    private void OnMove()
+    private void OnMove(InputValue inp) // Store movement input
     {
-        // Store movement input
-        move = input.Player.Move.ReadValue<Vector2>();
+        move = inp.Get<Vector3>();
+    }
+
+    private void OnLook(InputValue inp) // Change camera/player direction
+    {
+        Vector2 delta = inp.Get<Vector2>();
+        float dTime = Time.deltaTime * 20;
+
+        cam.Rotate(Mathf.Clamp(delta.y * -dTime, -85, 85), 0, 0);
+        transform.Rotate(0, delta.x * dTime, 0);
     }
 }
