@@ -7,26 +7,34 @@ public class CrystalLine : MonoBehaviour
     
     private static readonly bool[] constraints = new bool[2];
 
-    private void OnTriggerEnter(Collider other) // Unfreeze axis
+    private void OnTriggerStay(Collider other) // Unfreeze axis
     {
-        constraints[axis] = true;
-        UpdateFreeze();
+        if (other.name == "Crystal")//other.CompareTag("Crystal"))
+        {
+            constraints[axis] = true;
+            UpdateFreeze();
+        }
     }
 
     private void OnTriggerExit(Collider other) // Freeze axis
     {
-        constraints[axis] = false;
-        UpdateFreeze();
+        if (other.name == "Crystal")//other.CompareTag("Crystal"))
+        {
+            constraints[axis] = false;
+            UpdateFreeze();
+        }
     }
 
     private void UpdateFreeze() // Confirm freezes
     {
-        RigidbodyConstraints _strain = RigidbodyConstraints.None;
+        RigidbodyConstraints _strain = RigidbodyConstraints.FreezePosition;
 
         if (!constraints[0] && constraints[1])
             _strain = RigidbodyConstraints.FreezePositionX;
         else if (constraints[0] && !constraints[1])
             _strain = RigidbodyConstraints.FreezePositionZ;
+        else if (constraints[0] && constraints[1])
+            _strain = RigidbodyConstraints.None;
 
         crystal.constraints = _strain | RigidbodyConstraints.FreezeRotation;
     }
