@@ -21,13 +21,13 @@ public class CrystalLine : MonoBehaviour
 
     private void UpdateFreeze() // Confirm freezes
     {
-        RigidbodyConstraints strain = RigidbodyConstraints.None;
+        RigidbodyConstraints _strain = RigidbodyConstraints.None;
 
         if (!constraints[0] && constraints[1])
-            strain = RigidbodyConstraints.FreezePositionX;
+            _strain = RigidbodyConstraints.FreezePositionX;
         else if (constraints[0] && !constraints[1])
-            strain = RigidbodyConstraints.FreezePositionZ;
+            _strain = RigidbodyConstraints.FreezePositionZ;
 
-        crystal.constraints = strain | RigidbodyConstraints.FreezeRotation;
+        crystal.constraints = _strain | RigidbodyConstraints.FreezeRotation;
     }
 }
