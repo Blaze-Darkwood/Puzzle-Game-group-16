@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7759930096861309414}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,7 +260,7 @@ Rigidbody:
   m_GameObject: {fileID: 8431033736800107681}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 5
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -290,9 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7750fff457e867b43b0c1342323dc139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 7
-  moveSpeed: 7
-  maxSpeed: 14
+  jumpForce: 250
+  moveSpeed: 3
+  maxSpeed: 6
   cam: {fileID: 1637126275651272260}
 --- !u!114 &7759930096861309414
 MonoBehaviour:

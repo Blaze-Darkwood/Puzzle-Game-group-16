@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private PlayerInputs input;
     private Vector3 move = Vector3.zero;
+    private float originalDrag;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        originalDrag = rb.linearDamping;
         input = new();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -39,6 +41,12 @@ public class PlayerMovement : MonoBehaviour
             speed = moveSpeed;
 
         rb.AddRelativeForce(2 * speed * move);
+
+        // Ground check for drag (linearDamping)
+        if (GroundCheck())
+            rb.linearDamping = originalDrag;
+        else
+            rb.linearDamping = 0;
     }
 
     private void OnMove(InputValue inp) // Store movement input
@@ -53,5 +61,24 @@ public class PlayerMovement : MonoBehaviour
 
         cam.Rotate(Mathf.Clamp(delta.y * -dTime, -85, 85), 0, 0);
         transform.Rotate(0, delta.x * dTime, 0);
+    }
+
+    private void OnJump(InputValue inp) // Make character jump
+    {
+        if (GroundCheck())
+        {
+            rb.linearDamping = 0;
+            rb.AddForce(new(0, jumpForce));
+        }
+    }
+
+    private bool GroundCheck() // Check if we touch ground
+    {
+        Vector3 pos = transform.position;
+        Vector3 scale = transform.localScale;
+        pos.y -= transform.lossyScale.y / 2;
+        scale.y = .2f;
+
+        return Physics.BoxCast(pos, scale, Vector3.down, Quaternion.identity, .5f);
     }
 }

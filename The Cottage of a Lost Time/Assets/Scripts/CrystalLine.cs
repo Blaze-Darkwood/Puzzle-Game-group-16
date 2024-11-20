@@ -7,19 +7,19 @@ public class CrystalLine : MonoBehaviour
     
     private static readonly bool[] constraints = new bool[2];
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) // Unfreeze axis
     {
         constraints[axis] = true;
         UpdateFreeze();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) // Freeze axis
     {
         constraints[axis] = false;
         UpdateFreeze();
     }
 
-    private void UpdateFreeze()
+    private void UpdateFreeze() // Confirm freezes
     {
         RigidbodyConstraints strain = RigidbodyConstraints.None;
 
