@@ -2,20 +2,40 @@ using UnityEngine;
 
 public class LightScript : MonoBehaviour
 {
-    [SerializeField] private GameObject laserOrigin;
+    [SerializeField] private Transform laserOrigin;
+    private Vector3 dir;
+    private LineRenderer lr;
+    private GameObject mirror;
 
     private RaycastHit hit;
     void Start()
     {
-        
+        lr = GetComponent<LineRenderer>();
+        dir = laserOrigin.forward;
+        lr.positionCount = 2;
+        lr.SetPosition(0, laserOrigin.position);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.Raycast(laserOrigin.position, dir, out hit, Mathf.Infinity))
         {
-            Debug.Log(hit.distance);
+            if (hit.collider.CompareTag("Mirror"))
+            {
+                mirror = hit.collider.gameObject;
+                Vector3 tempV3 = Vector3.Reflect(dir, hit.normal);
+                hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
+            }
+            lr.SetPosition(1, hit.point);
+        }
+        else
+        {
+            if (mirror)
+            {
+                mirror.GetComponent<Mirror>().StopRay();
+                mirror = null;
+            }
+            lr.SetPosition(1, dir * 200);
         }
     }
 }
