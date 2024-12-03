@@ -9,7 +9,7 @@ public class CrystalLine : MonoBehaviour
 
     private void OnTriggerStay(Collider other) // Unfreeze axis
     {
-        if (other.name == "Crystal")//other.CompareTag("Crystal"))
+        if (other.CompareTag("Crystal"))
         {
             constraints[axis] = true;
             UpdateFreeze();
@@ -18,7 +18,7 @@ public class CrystalLine : MonoBehaviour
 
     private void OnTriggerExit(Collider other) // Freeze axis
     {
-        if (other.name == "Crystal")//other.CompareTag("Crystal"))
+        if (other.CompareTag("Crystal"))
         {
             constraints[axis] = false;
             UpdateFreeze();
