@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7759930096861309414}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +235,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8431033736800107681}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d653bb710a4855c469d54afac6ca0f7f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -290,9 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7750fff457e867b43b0c1342323dc139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 7
-  moveSpeed: 7
-  maxSpeed: 14
+  jumpForce: 250
+  moveSpeed: 5
+  maxSpeed: 10
   cam: {fileID: 1637126275651272260}
 --- !u!114 &7759930096861309414
 MonoBehaviour:
