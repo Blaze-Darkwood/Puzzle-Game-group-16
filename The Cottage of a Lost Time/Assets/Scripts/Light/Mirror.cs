@@ -5,24 +5,24 @@ public class Mirror : MonoBehaviour
     private Vector3 pos;
     private Vector3 dir;
     private LineRenderer lr;
-    public bool isOpen;
+    public bool laserActive;
 
     private GameObject mirror;
 
     void Start()
     {
-        isOpen = false;
+        laserActive = false;
         lr = GetComponent<LineRenderer>();
     }
 
     void Update()
     {
-        if (isOpen)
+        if (laserActive)
         {
             lr.positionCount = 2;
             lr.SetPosition(0, pos);
-            RaycastHit hit;
-            if (Physics.Raycast(pos, dir, out hit, Mathf.Infinity))
+            
+            if (Physics.Raycast(pos, dir, out RaycastHit hit, Mathf.Infinity))
             {
                 if (hit.collider.CompareTag("Mirror"))
                 {
@@ -43,19 +43,17 @@ public class Mirror : MonoBehaviour
             }
         }
         else if (mirror)
-        {
             mirror.GetComponent<Mirror>().StopRay();
-        }
     }
     public void StartRay(Vector3 _pos, Vector3 _dir)
     {
-        isOpen = true;
+        laserActive = true;
         pos = _pos;
         dir = _dir;
     }
     public void StopRay()
     {
-        isOpen = false;
+        laserActive = false;
         lr.positionCount = 0;
     }
 }
