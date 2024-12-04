@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputs input;
     private Vector3 move = Vector3.zero;
     private float originalDrag;
+    private float xRotation = .0f;
 
     private void Awake()
     {
@@ -58,12 +59,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 _delta = _inp.Get<Vector2>();
         float _dTime = Time.deltaTime * 20;
-        float _rotationX = Mathf.Clamp(_delta.y * -_dTime, -85, 85);
-        float _newX = _rotationX + cam.rotation.x;
-        
-        if (_newX < 85 && _newX > -85)
-            cam.Rotate(_rotationX, 0, 0);
+        float _rotX = -_delta.y * _dTime;
+        xRotation = Mathf.Clamp(_rotX + xRotation, -85, 85);
 
+        cam.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.Rotate(0, _delta.x * _dTime, 0);
     }
 
