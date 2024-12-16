@@ -24,3 +24,13 @@
 - Aim white crystal on the right side to middle block left side
 - Push and aim white crystal on floor_2 left side upper block to shine on left_purple_trigger
 - Aim pink crystal to shine on middle_pink_trigger, revealing bookshelf with triggers
+- When all triggers are ready, last room on floor_2 right side
+
+---
+
+# Puzzle 5:
+- Get key from bottom room floor_2 right side, in future cuz bookshelf burned down
+- Key opens small bookshelf room on floor_1, red crystal within
+- Push red crystal to shine on plants in greenhouse
+- Plants burned in future, now can get key in greenhouse
+- Use key to open door, end of game
