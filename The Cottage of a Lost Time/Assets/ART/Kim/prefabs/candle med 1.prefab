@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &545036160835246440
+--- !u!1001 &6507334916541058774
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5353835
+      value: 0.3112398
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.30179033
+      value: 0.3112398
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5353835
+      value: 0.3112398
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.053
+      value: -0.61788607
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.658
+      value: -1.5096622
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.228
+      value: -0.99303627
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_LocalRotation.y
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 50ebb91437a815d4e84b7801eb449c12, type: 2}
     - target: {fileID: 919132149155446097, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_Name
-      value: candle small
+      value: candle med 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6c4a286152ff37b479bb4a9de65c560c, type: 3}
       propertyPath: m_StaticEditorFlags
