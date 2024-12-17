@@ -294,6 +294,9 @@ MonoBehaviour:
   moveSpeed: 5
   maxSpeed: 10
   cam: {fileID: 1637126275651272260}
+  crystalLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &7759930096861309414
 MonoBehaviour:
   m_ObjectHideFlags: 0
