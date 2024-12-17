@@ -17,7 +17,8 @@ public class TimeTravel : MonoBehaviour
     [SerializeField] private GameObject[] futureMap;
     [SerializeField] private GameObject[] pastMap;
     [SerializeField] private bool inTheFuture = true;
-    [SerializeField] private int transitionTime;
+    [SerializeField] private float transitionTime = 4;
+    private int transitioning = 0;
 
     private void Start()
     {
@@ -35,7 +36,18 @@ public class TimeTravel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             StartCoroutine(CrystalTransition());
-            crystalHud.alpha += 1 / transitionTime;
+            transitioning = 1;
+        }
+
+        crystalHud.alpha += 1/transitionTime * Time.deltaTime * transitioning;
+
+        if (crystalHud.alpha == 1) 
+        {
+            transitioning = -1;
+        }
+        else if (crystalHud.alpha == 0)
+        {
+            transitioning = 0;
         }
     }
 
@@ -75,6 +87,7 @@ public class TimeTravel : MonoBehaviour
     {
         yield return new WaitForSeconds(transitionTime);
         ChangeTime();
+        transitionTime = 2;
     }
 
     GameObject[] FindGameObjectsInLayer(int layer)

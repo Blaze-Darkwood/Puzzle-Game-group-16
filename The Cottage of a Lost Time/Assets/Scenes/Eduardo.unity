@@ -477,7 +477,8 @@ MonoBehaviour:
   crystalHud: {fileID: 1796834259}
   futureMap: []
   pastMap: []
-  inThePast: 0
+  inTheFuture: 0
+  transitionTime: 4
 --- !u!4 &483125498
 Transform:
   m_ObjectHideFlags: 0
