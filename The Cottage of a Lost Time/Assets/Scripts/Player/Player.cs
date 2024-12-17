@@ -85,15 +85,10 @@ public class Player : MonoBehaviour
 
     private void OnCrystal() // Go into crystal direction change mode
     {
-        if (!crystalMove)
+        if (!crystalMove && Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, 5, crystalLayer))
         {
-            Debug.Log("sending raycast...");
-            if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, 5))
-            {
-                Debug.Log("selected '" + hit.collider.name + "'");
-                selectedCrystal = hit.collider.transform;
-                crystalMove = true;
-            }
+            selectedCrystal = hit.collider.transform;
+            crystalMove = true;
         }
         else crystalMove = false;
     }
