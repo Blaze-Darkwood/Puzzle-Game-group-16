@@ -26,7 +26,6 @@ public class LightScript : MonoBehaviour
                 Vector3 tempV3 = Vector3.Reflect(dir, hit.normal);
                 hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
             }
-            else
             lr.SetPosition(1, hit.point);
         }
         else
