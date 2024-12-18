@@ -20,12 +20,14 @@ public class LightScript : MonoBehaviour
     {
         if (Physics.Raycast(laserOrigin.position, dir, out hit, Mathf.Infinity))
         {
-            if (hit.collider.CompareTag("Mirror"))
+            if (hit.collider.CompareTag("Mirror"))          //Checks to see if a mirror is hit then "reflects" the light by starting a new line
             {
                 mirror = hit.collider.gameObject;
                 Vector3 tempV3 = Vector3.Reflect(dir, hit.normal);
                 hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
             }
+            if (hit.collider.CompareTag("Target"))          //Enter TargetHit code here 0/2
+                Debug.Log("Target hit");
             lr.SetPosition(1, hit.point);
         }
         else
