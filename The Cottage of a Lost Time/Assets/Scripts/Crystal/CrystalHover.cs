@@ -19,11 +19,11 @@ public class CrystalHover : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float elapsedPercentage = elapsedTime / timeToCheck;
             elapsedPercentage = Mathf.SmoothStep(0, 1, elapsedPercentage);
-            Vector3 newPos = Vector3.Lerp(C(previousIndex).position,
-                C(targetIndex).position, elapsedPercentage);
+            Vector3 newPos = Vector3.Lerp(C(previousIndex).localPosition,
+                C(targetIndex).localPosition, elapsedPercentage);
             Quaternion newRot = Quaternion.Lerp(C(previousIndex).rotation,
                 C(targetIndex).rotation, elapsedPercentage);
-            transform.SetPositionAndRotation(newPos, newRot);
+            transform.SetLocalPositionAndRotation(newPos, newRot);
 
             if (elapsedPercentage >= 1)
                 TargetNextCheckpoint();

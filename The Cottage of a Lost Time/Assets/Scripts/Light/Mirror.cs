@@ -5,31 +5,33 @@ public class Mirror : MonoBehaviour
     private Vector3 pos;
     private Vector3 dir;
     private LineRenderer lr;
-    public bool laserActive;
+    private bool isOpen;
 
     private GameObject mirror;
 
     void Start()
     {
-        laserActive = false;
+        isOpen = false;
         lr = GetComponent<LineRenderer>();
     }
 
     void Update()
     {
-        if (laserActive)
+        if (isOpen)
         {
             lr.positionCount = 2;
             lr.SetPosition(0, pos);
-            
-            if (Physics.Raycast(pos, dir, out RaycastHit hit, Mathf.Infinity))
+            RaycastHit hit;
+            if (Physics.Raycast(pos, dir, out hit, Mathf.Infinity))
             {
-                if (hit.collider.CompareTag("Mirror"))
+                if (hit.collider.CompareTag("Mirror"))      //Checks to see if a mirror is hit then "reflects" the light by starting a new line
                 {
                     mirror = hit.collider.gameObject;
                     Vector3 tempV3 = Vector3.Reflect(dir, hit.normal);
                     hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
                 }
+                if (hit.collider.CompareTag("Target"))          //Enter TargetHit code here 0/2
+                    Debug.Log("Target hit");
                 lr.SetPosition(1, hit.point);
             }
             else
@@ -43,17 +45,26 @@ public class Mirror : MonoBehaviour
             }
         }
         else if (mirror)
+        {
             mirror.GetComponent<Mirror>().StopRay();
+        }
+
+        //if (Input.GetKey(KeyCode.P))
+        //{
+        //    StopRay();
+        //    mirror = null;
+        //    Debug.Log("test");
+        //}
     }
     public void StartRay(Vector3 _pos, Vector3 _dir)
     {
-        laserActive = true;
+        isOpen = true;
         pos = _pos;
         dir = _dir;
     }
-    public void StopRay()
+    public void StopRay()                                       //Should stop ray, doesn't work idk why
     {
-        laserActive = false;
+        isOpen = false;
         lr.positionCount = 0;
     }
 }

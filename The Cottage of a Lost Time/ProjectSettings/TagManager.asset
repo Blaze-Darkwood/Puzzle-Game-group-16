@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Mirror
   - Crystal
+  - Target
+  - Ground
   layers:
   - Default
   - TransparentFX
