@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: color
+  m_Name: red
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: 4998808cc954c424993ea5e28ccef769, type: 2}
   m_ModifiedSerializedProperties: 16
@@ -44,7 +44,7 @@ Material:
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     m_Colors:
-    - _BaseColor: {r: 0.70440245, g: 0.30346894, b: 0.30346894, a: 1}
-    - _Color: {r: 0.70440245, g: 0.3034689, b: 0.3034689, a: 1}
+    - _BaseColor: {r: 0.76729554, g: 0.20509459, b: 0.20509459, a: 1}
+    - _Color: {r: 0.76729554, g: 0.20509455, b: 0.20509455, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -6,7 +6,7 @@ public class CrystalEnd : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) // Stop rotation and movement when hitting the ground
     {
-        if (collision.collider.name == "Ground")
+        if (collision.collider.CompareTag("Ground"))
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
 
