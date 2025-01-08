@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Mirror : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Mirror : MonoBehaviour
     private bool isOpen;
 
     private GameObject mirror;
+
+    private float timer = 1f;
 
     void Start()
     {
@@ -33,12 +36,16 @@ public class Mirror : MonoBehaviour
                 if (hit.collider.CompareTag("Target"))          //Enter TargetHit code here 0/2
                     Debug.Log("Target hit");
                 lr.SetPosition(1, hit.point);
+                if (hit.collider.CompareTag("Crystal"))
+                {
+                    hit.collider.gameObject.GetComponent<CrystalColor>().ChangeColor();
+                }
             }
             else
             {
                 if (mirror)
                 {
-                    mirror.GetComponent<Mirror>().StopRay();
+                    /*mirror.GetComponent<Mirror>().*/StopRay();
                     mirror = null;
                 }
                 lr.SetPosition(1, dir * 100);
@@ -46,15 +53,16 @@ public class Mirror : MonoBehaviour
         }
         else if (mirror)
         {
-            mirror.GetComponent<Mirror>().StopRay();
+            /*mirror.GetComponent<Mirror>().*/StopRay();
         }
 
-        //if (Input.GetKey(KeyCode.P))
-        //{
-        //    StopRay();
-        //    mirror = null;
-        //    Debug.Log("test");
-        //}
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            StopRay();
+            Debug.Log("test");
+            timer = 1f;
+        }
     }
     public void StartRay(Vector3 _pos, Vector3 _dir)
     {

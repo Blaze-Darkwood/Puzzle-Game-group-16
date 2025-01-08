@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 9146460197333975025}
   - component: {fileID: 2564379284083357483}
   - component: {fileID: 4703492394445778439}
-  - component: {fileID: 3263644513055211027}
   - component: {fileID: 5418335102049555776}
+  - component: {fileID: 7676809255644986016}
   m_Layer: 0
   m_Name: Mirror
   m_TagString: Mirror
@@ -110,7 +110,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!120 &3263644513055211027
+--- !u!114 &5418335102049555776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168311465205207162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ca6551b4a2bf74bac9c3b626d63fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!120 &7676809255644986016
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -134,7 +146,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2e8c6928175f10e46aebec9823d86775, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -217,16 +229,3 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &5418335102049555776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5168311465205207162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ca6551b4a2bf74bac9c3b626d63fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOpen: 0
