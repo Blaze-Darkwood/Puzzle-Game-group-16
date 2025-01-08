@@ -62,6 +62,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TimeChange"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2d62412-dfe6-48d4-ba1b-4407167cdfce"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Crystal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11a85257-6c36-45c0-a54f-e3fe2f0d65e3"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TimeChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Crystal = m_Player.FindAction("Crystal", throwIfNotFound: true);
+        m_Player_TimeChange = m_Player.FindAction("TimeChange", throwIfNotFound: true);
     }
 
     ~@PlayerInputs()
@@ -234,6 +255,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Crystal;
+    private readonly InputAction m_Player_TimeChange;
     public struct PlayerActions
     {
         private @PlayerInputs m_Wrapper;
@@ -242,6 +264,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Crystal => m_Wrapper.m_Player_Crystal;
+        public InputAction @TimeChange => m_Wrapper.m_Player_TimeChange;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +286,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Crystal.started += instance.OnCrystal;
             @Crystal.performed += instance.OnCrystal;
             @Crystal.canceled += instance.OnCrystal;
+            @TimeChange.started += instance.OnTimeChange;
+            @TimeChange.performed += instance.OnTimeChange;
+            @TimeChange.canceled += instance.OnTimeChange;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -279,6 +305,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Crystal.started -= instance.OnCrystal;
             @Crystal.performed -= instance.OnCrystal;
             @Crystal.canceled -= instance.OnCrystal;
+            @TimeChange.started -= instance.OnTimeChange;
+            @TimeChange.performed -= instance.OnTimeChange;
+            @TimeChange.canceled -= instance.OnTimeChange;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -302,5 +331,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrystal(InputAction.CallbackContext context);
+        void OnTimeChange(InputAction.CallbackContext context);
     }
 }

@@ -18,7 +18,20 @@ public class LightScript : MonoBehaviour
 
     void Update()
     {
-        if (Physics.Raycast(laserOrigin.position, dir, out hit, Mathf.Infinity))
+        RaycastHit[] _hits = Physics.RaycastAll(laserOrigin.position, dir, Mathf.Infinity);
+        RaycastHit _closestHit = _hits[0];
+        float distance = _closestHit.distance;
+
+        foreach (RaycastHit h in _hits )
+        {
+            Debug.Log(h.collider.name);
+            if (!h.collider.CompareTag("Crystal") && !h.collider.CompareTag("IgnoreLazer"))
+                if (h.distance < distance)
+                    _closestHit = h;
+        }
+        hit = _closestHit;
+
+        if (hit.collider)
         {
             if (hit.collider.CompareTag("Mirror"))          //Checks to see if a mirror is hit then "reflects" the light by starting a new line
             {
@@ -26,9 +39,10 @@ public class LightScript : MonoBehaviour
                 Vector3 tempV3 = Vector3.Reflect(dir, hit.normal);
                 hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
             }
+            lr.SetPosition(1, hit.point);
+
             if (hit.collider.CompareTag("Target"))          //Enter TargetHit code here 0/2
                 Debug.Log("Target hit");
-            lr.SetPosition(1, hit.point);
         }
         else
         {
