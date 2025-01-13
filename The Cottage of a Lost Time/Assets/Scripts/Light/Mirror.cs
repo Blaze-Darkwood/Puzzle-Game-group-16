@@ -26,17 +26,27 @@ public class Mirror : MonoBehaviour
             lr.SetPosition(0, pos);
 
             RaycastHit[] _hits = Physics.RaycastAll(pos, dir, Mathf.Infinity);
-            RaycastHit _closestHit = _hits[0];
-            float distance = _closestHit.distance;
+            RaycastHit _closestHit = _hits[^1], _furthestHit = _hits[^1];
+            float _cDistance = _closestHit.distance, _hDistance = _furthestHit.distance;
 
             foreach (RaycastHit h in _hits)
             {
-                Debug.Log(h.collider.name);
                 if (!h.collider.CompareTag("Crystal") && !h.collider.CompareTag("IgnoreLazer"))
-                    if (h.distance < distance)
+                {
+                    if (h.distance < _cDistance)
+                    {
                         _closestHit = h;
+                        _cDistance = h.distance;
+                    }
+                    else if (h.distance < _hDistance)
+                    {
+                        _furthestHit = h;
+                        _hDistance = h.distance;
+                    }
+                }
             }
-            RaycastHit hit = _closestHit;
+            RaycastHit hit = _closestHit.collider.CompareTag("Crystal") ||
+                _closestHit.collider.CompareTag("IgnoreLazer") ? _furthestHit : _closestHit;
 
             if (hit.collider)
             {
