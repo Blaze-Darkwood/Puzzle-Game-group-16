@@ -264,6 +264,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4703492394445778439, guid: 78b4482970a59bd4d8c9bf555b5fc466, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1184704
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703492394445778439, guid: 78b4482970a59bd4d8c9bf555b5fc466, type: 3}
+      propertyPath: m_Center.y
+      value: -0.059235305
+      objectReference: {fileID: 0}
     - target: {fileID: 5168311465205207162, guid: 78b4482970a59bd4d8c9bf555b5fc466, type: 3}
       propertyPath: m_Name
       value: Mirror

@@ -20,12 +20,17 @@ public class LightScript : MonoBehaviour
     private void Update()
     {
         RaycastHit[] _hits = Physics.RaycastAll(laserOrigin.position, dir, Mathf.Infinity);
-        RaycastHit _closestHit = _hits[^1], _furthestHit = _hits[^1];
+        RaycastHit _closestHit = _hits[^1], _furthestHit = _hits[^1], _mirror = _hits[^1];
         float _cDistance = _closestHit.distance, _hDistance = _furthestHit.distance;
 
         foreach (RaycastHit h in _hits)
         {
-            if (!h.collider.CompareTag("Crystal") && !h.collider.CompareTag("IgnoreLazer"))
+            if (h.collider.CompareTag("Mirror"))
+            {
+                _mirror = h;
+                break;
+            }    
+            else if (!h.collider.CompareTag("Crystal") && !h.collider.CompareTag("IgnoreLazer"))
             {
                 if (h.distance < _cDistance)
                 {
@@ -39,10 +44,11 @@ public class LightScript : MonoBehaviour
                 }
             }
         }
+        hit = _mirror;
 
         if (!_closestHit.collider.CompareTag("Crystal") && !_closestHit.collider.CompareTag("IgnoreLazer"))
             hit = _closestHit;
-        else
+        else if (hit.collider != _hits[^1].collider)
             hit = _furthestHit;
 
         if (hit.collider)
