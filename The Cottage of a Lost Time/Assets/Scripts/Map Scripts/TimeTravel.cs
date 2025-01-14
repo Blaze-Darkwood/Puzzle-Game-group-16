@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Linq;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System.Linq;
 
 enum MapTimes
 {
@@ -93,18 +94,6 @@ public class TimeTravel : MonoBehaviour
     GameObject[] FindGameObjectsInLayer(int layer)
     {
         var goArray = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        var goList = new System.Collections.Generic.List<GameObject>();
-        for (int i = 0; i < goArray.Length; i++)
-        {
-            if (goArray[i].layer == layer)
-            {
-                goList.Add(goArray[i]);
-            }
-        }
-        if (goList.Count == 0)
-        {
-            return null;
-        }
-        return goList.ToArray();
+        return goArray.Where(x => x.layer == layer).ToArray();
     }
 }
