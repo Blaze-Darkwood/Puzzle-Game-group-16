@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Mirror : MonoBehaviour
 {
@@ -66,7 +65,7 @@ public class Mirror : MonoBehaviour
                     hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
                 }
                 else if (hit.collider.CompareTag("Target"))          //Enter TargetHit code here 0/2
-                    Debug.Log("Target hit");
+                    hit.collider.gameObject.GetComponent<Target>().HitTarget(new Color());
                 else if (!hit.collider.CompareTag("Crystal") || !hit.collider.CompareTag("IgnoreLazer"))
                     lr.SetPosition(1, hit.point);
                 else if (hit.collider.CompareTag("Crystal"))
