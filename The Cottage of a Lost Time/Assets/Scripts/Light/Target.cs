@@ -9,6 +9,7 @@ public class Target : MonoBehaviour
     private enum Levels { one, two, three };
     private ITargetReaction reaction;
     private Dictionary<Color, bool> colorPairs;
+    private bool targetCompleted = false;
 
     private void Start()
     {
@@ -28,11 +29,16 @@ public class Target : MonoBehaviour
 
     public void HitTarget(Color color)
     {
+        if (targetCompleted) return;
+
         bool completed = true;
 
         foreach (KeyValuePair<Color, bool> kvp in colorPairs)
             if (kvp.Key == color)
+            {
                 colorPairs[kvp.Key] = true;
+                break;
+            }
 
         foreach (KeyValuePair<Color, bool> kvp in colorPairs)
             if (!kvp.Value)
@@ -42,6 +48,9 @@ public class Target : MonoBehaviour
             }
 
         if (completed)
+        {
             reaction.React();
+            targetCompleted = true;
+        }
     }
 }

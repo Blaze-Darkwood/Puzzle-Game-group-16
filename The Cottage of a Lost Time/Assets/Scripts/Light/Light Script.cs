@@ -1,8 +1,10 @@
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class LightScript : MonoBehaviour
 {
     [SerializeField] private Transform laserOrigin;
+    [SerializeField] private LayerMask mirrorMask;
     private Vector3 dir;
     private LineRenderer lr;
     private GameObject mirror;
@@ -19,59 +21,31 @@ public class LightScript : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit[] _hits = Physics.RaycastAll(laserOrigin.position, dir, Mathf.Infinity);
-        RaycastHit _closestHit = _hits[^1], _furthestHit = _hits[^1], _mirror = _hits[^1];
-        float _cDistance = _closestHit.distance, _hDistance = _furthestHit.distance;
+        RaycastHit[] _hitObjs = new RaycastHit[2];
 
-        foreach (RaycastHit h in _hits)
+        Physics.Raycast(laserOrigin.position, dir, out _hitObjs[0], Mathf.Infinity, mirrorMask);
+        Physics.Raycast(laserOrigin.position, dir, out _hitObjs[1], Mathf.Infinity);
+        RaycastHit _hit = _hitObjs[1];
+
+        if (!_hitObjs[1].collider.CompareTag("Crystal") && !_hitObjs[1].collider.CompareTag("IgnoreLazer"))
         {
-            if (h.collider.CompareTag("Mirror"))
-            {
-                _mirror = h;
-                break;
-            }    
-            else if (!h.collider.CompareTag("Crystal") && !h.collider.CompareTag("IgnoreLazer"))
-            {
-                if (h.distance < _cDistance)
-                {
-                    _closestHit = h;
-                    _cDistance = h.distance;
-                }
-                else if (h.distance < _hDistance)
-                {
-                    _furthestHit = h;
-                    _hDistance = h.distance;
-                }
-            }
+            Collider _coll = _hit.collider;
+            GameObject _hitObj = _coll.gameObject;
+            mirror = null;
+
+            if (_coll.CompareTag("Target"))
+                _hitObj.GetComponent<Target>().HitTarget(new Color(0, .9176470588f, 1, 0));
         }
-        hit = _mirror;
-
-        if (!_closestHit.collider.CompareTag("Crystal") && !_closestHit.collider.CompareTag("IgnoreLazer"))
-            hit = _closestHit;
-        else if (hit.collider != _hits[^1].collider)
-            hit = _furthestHit;
-
-        if (hit.collider)
+        else if (_hitObjs[0].collider)
         {
-            if (hit.collider.CompareTag("Mirror"))          //Checks to see if a mirror is hit then "reflects" the light by starting a new line
-            {
-                mirror = hit.collider.gameObject;
-                Vector3 tempV3 = Vector3.Reflect(dir, hit.normal);
-                hit.collider.gameObject.GetComponent<Mirror>().StartRay(hit.point, tempV3);
-            }
-            lr.SetPosition(1, hit.point);
+            _hit = _hitObjs[0];
+            mirror = _hit.collider.gameObject;
+            Vector3 reflect = Vector3.Reflect(dir, _hit.normal);
+            mirror.GetComponent<Mirror>().StartRay(_hit.point, reflect);
+        }
+        /*else if (_hitObjs[1].collider.CompareTag("Crystal"))
+            _hitObjs[1].collider.GetComponent<CrystalColor>().ChangeColor();*/
 
-            if (hit.collider.CompareTag("Target"))          //Enter TargetHit code here 0/2
-                Debug.Log("Target hit");
-        }
-        else
-        {
-            if (mirror)
-            {
-                mirror.GetComponent<Mirror>().StopRay();
-                mirror = null;
-            }
-            lr.SetPosition(1, dir * 200);
-        }
+        lr.SetPosition(1, _hit.point);
     }
 }

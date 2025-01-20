@@ -209,6 +209,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserOrigin: {fileID: 3333897516642831350}
+  mirrorMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &4682133531478726099
 GameObject:
   m_ObjectHideFlags: 0
