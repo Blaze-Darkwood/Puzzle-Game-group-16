@@ -62,12 +62,14 @@ public class Mirror : MonoBehaviour
             timer = 1f;
         }
     }
+
     public void StartRay(Vector3 _pos, Vector3 _dir)
     {
         isOpen = true;
         pos = _pos;
         dir = _dir;
     }
+
     public void StopRay()                                       //Should stop ray, doesn't work idk why
     {
         isOpen = false;

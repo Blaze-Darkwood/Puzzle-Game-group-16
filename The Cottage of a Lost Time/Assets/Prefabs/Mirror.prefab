@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mirrorMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!120 &7676809255644986016
 LineRenderer:
   serializedVersion: 2

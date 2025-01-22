@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ReactionOne : MonoBehaviour, ITargetReaction
+public class ReactionFour : MonoBehaviour, ITargetReaction
 {
     public void React()
     {

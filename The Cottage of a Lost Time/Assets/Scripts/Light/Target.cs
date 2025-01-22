@@ -6,7 +6,7 @@ public class Target : MonoBehaviour
     [SerializeField] private List<Color> requiredColors;
     [SerializeField] private Levels levelReaction;
 
-    private enum Levels { one, two, three };
+    private enum Levels { one, two, three, four };
     private ITargetReaction reaction;
     private Dictionary<Color, bool> colorPairs;
     private bool targetCompleted = false;
@@ -23,6 +23,7 @@ public class Target : MonoBehaviour
             Levels.one => gameObject.AddComponent<ReactionOne>(),
             Levels.two => gameObject.AddComponent<ReactionTwo>(),
             Levels.three => gameObject.AddComponent<ReactionThree>(),
+            Levels.four => gameObject.AddComponent<ReactionFour>(),
             _ => throw new System.NotImplementedException()
         };
     }
