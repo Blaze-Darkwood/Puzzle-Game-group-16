@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Linq;
-using UnityEngine.UIElements;
-using UnityEngine.UI;
 using System.Linq;
+using UnityEngine;
 
 enum MapTimes
 {
@@ -19,7 +15,9 @@ public class TimeTravel : MonoBehaviour
     [SerializeField] private GameObject[] pastMap;
     [SerializeField] private bool inTheFuture = true;
     [SerializeField] private float transitionTime = 4;
+
     private int transitioning = 0;
+    private bool triggered = false;
 
     private void Start()
     {
@@ -34,22 +32,27 @@ public class TimeTravel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (triggered)
         {
-            StartCoroutine(CrystalTransition());
-            transitioning = 1;
-        }
+            crystalHud.alpha += 1 / transitionTime * Time.deltaTime * transitioning;
 
-        crystalHud.alpha += 1/transitionTime * Time.deltaTime * transitioning;
+            if (crystalHud.alpha == 1)
+            {
+                transitioning = -1;
+            }
+            else if (crystalHud.alpha == 0)
+            {
+                transitioning = 0;
+                triggered = false;
+            }
+        }
+    }
 
-        if (crystalHud.alpha == 1) 
-        {
-            transitioning = -1;
-        }
-        else if (crystalHud.alpha == 0)
-        {
-            transitioning = 0;
-        }
+    public void Travel()
+    {
+        StartCoroutine(nameof(CrystalTransition));
+        transitioning = 1;
+        triggered = true;
     }
 
     private void ChangeTime()
@@ -84,14 +87,14 @@ public class TimeTravel : MonoBehaviour
         }
     }
 
-    IEnumerator CrystalTransition()
+    private IEnumerator CrystalTransition()
     {
         yield return new WaitForSeconds(transitionTime);
         ChangeTime();
-        transitionTime = 2;
+        transitionTime /= 2;
     }
 
-    GameObject[] FindGameObjectsInLayer(int layer)
+    private GameObject[] FindGameObjectsInLayer(int layer)
     {
         var goArray = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         return goArray.Where(x => x.layer == layer).ToArray();

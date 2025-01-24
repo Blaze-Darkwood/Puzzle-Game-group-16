@@ -10,16 +10,19 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask crystalLayer;
 
     private Rigidbody rb;
+    private TimeTravel tt;
     private PlayerInputs input;
     private Vector3 move = Vector3.zero;
     private float originalDrag;
     private float xRotation = .0f;
     private bool crystalMove;
+    private bool canTravel;
     private Transform selectedCrystal;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        tt = GetComponent<TimeTravel>();
         originalDrag = rb.linearDamping;
         input = new();
         Cursor.lockState = CursorLockMode.Locked;
@@ -51,6 +54,11 @@ public class Player : MonoBehaviour
             rb.linearDamping = originalDrag;
         else
             rb.linearDamping = 0;
+    }
+
+    public void TriggerTravel(bool enter)
+    {
+        canTravel = enter;
     }
 
     private void OnMove(InputValue _inp) // Store movement input
@@ -91,6 +99,12 @@ public class Player : MonoBehaviour
             crystalMove = true;
         }
         else crystalMove = false;
+    }
+
+    private void OnTimeTravel() // Change time
+    {
+        if (canTravel)
+            tt.Travel();
     }
 
     private bool GroundCheck() // Check if we touch ground

@@ -38,6 +38,10 @@ public class Target : MonoBehaviour
             if (kvp.Key == color)
             {
                 colorPairs[kvp.Key] = true;
+
+                if (levelReaction == Levels.three)
+                    ReactionThree.ReactPart();
+
                 break;
             }
 

@@ -11,6 +11,6 @@ public class ReactionOne : MonoBehaviour, ITargetReaction
 
     public void React()
     {
-        target.SetActive(false);
+        Destroy(target);
     }
 }
