@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class LightScript : MonoBehaviour
 {
@@ -25,11 +24,11 @@ public class LightScript : MonoBehaviour
 
         Physics.Raycast(laserOrigin.position, dir, out _hitObjs[0], Mathf.Infinity, mirrorMask);
         Physics.Raycast(laserOrigin.position, dir, out _hitObjs[1], Mathf.Infinity);
-        RaycastHit _hit = _hitObjs[1];
+        hit = _hitObjs[1];
 
         if (!_hitObjs[1].collider.CompareTag("Crystal") && !_hitObjs[1].collider.CompareTag("IgnoreLazer"))
         {
-            Collider _coll = _hit.collider;
+            Collider _coll = hit.collider;
             GameObject _hitObj = _coll.gameObject;
             mirror = null;
 
@@ -38,14 +37,12 @@ public class LightScript : MonoBehaviour
         }
         else if (_hitObjs[0].collider)
         {
-            _hit = _hitObjs[0];
-            mirror = _hit.collider.gameObject;
-            Vector3 reflect = Vector3.Reflect(dir, _hit.normal);
-            mirror.GetComponent<Mirror>().StartRay(_hit.point, reflect);
+            hit = _hitObjs[0];
+            mirror = hit.collider.gameObject;
+            Vector3 reflect = Vector3.Reflect(dir, hit.normal);
+            mirror.GetComponent<Mirror>().StartRay(hit.point, reflect, Color.white);
         }
-        /*else if (_hitObjs[1].collider.CompareTag("Crystal"))
-            _hitObjs[1].collider.GetComponent<CrystalColor>().ChangeColor();*/
 
-        lr.SetPosition(1, _hit.point);
+        lr.SetPosition(1, hit.point);
     }
 }

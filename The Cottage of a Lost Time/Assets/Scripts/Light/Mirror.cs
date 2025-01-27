@@ -3,13 +3,14 @@ using UnityEngine;
 public class Mirror : MonoBehaviour
 {
     [SerializeField] private LayerMask mirrorMask;
+    [SerializeField] private CrystalColor cColor;
     
     private Vector3 pos;
     private Vector3 dir;
     private LineRenderer lr;
     private bool isOpen;
     private GameObject mirror;
-    private float timer = 1f;
+    private Color colorIn;
 
     void Start()
     {
@@ -43,36 +44,25 @@ public class Mirror : MonoBehaviour
                 _hit = _hitObjs[0];
                 mirror = _hit.collider.gameObject;
                 Vector3 reflect = Vector3.Reflect(dir, _hit.normal);
-                mirror.GetComponent<Mirror>().StartRay(_hit.point, reflect);
+                Color _colorOut = GetColor(_hitObjs[1]);
+                mirror.GetComponent<Mirror>().StartRay(_hit.point, reflect, _colorOut);
             }
-            /*else if (_hitObjs[1].collider.CompareTag("Crystal"))
-                _hitObjs[1].collider.GetComponent<CrystalColor>().ChangeColor();*/
 
             lr.SetPosition(1, _hit.point);
         }
-        else if (mirror)
-        {
-            /*mirror.GetComponent<Mirror>().*/StopRay();
-        }
-
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            StopRay();
-            timer = 1f;
-        }
     }
 
-    public void StartRay(Vector3 _pos, Vector3 _dir)
+    public void StartRay(Vector3 _pos, Vector3 _dir, Color _c)
     {
         isOpen = true;
         pos = _pos;
         dir = _dir;
+        colorIn = _c;
+        lr.material.color = cColor.ChangeColor(colorIn);
     }
 
-    public void StopRay()                                       //Should stop ray, doesn't work idk why
+    private Color GetColor(RaycastHit _hit)
     {
-        isOpen = false;
-        lr.positionCount = 0;
+        return _hit.collider.GetComponent<CrystalColor>().ChangeColor(colorIn);
     }
 }

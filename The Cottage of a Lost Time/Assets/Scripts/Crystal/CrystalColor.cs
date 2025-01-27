@@ -1,51 +1,32 @@
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class CrystalColor : MonoBehaviour
 {
-    [SerializeField] private Material crystalColor;
-    private Color customColor;
-    private Color baseColor;
-    private Color lightColor;
+    [SerializeField] private Material crystalMaterial;
+    private Color crystalColor;
 
-    private float timer = 1f;
-    void Start()
+    private void Start()
     {
-        baseColor = Color.red;
-        lightColor = Color.blue;
-        customColor = new Color((Color.red.r + Color.blue.r) / 2, (Color.red.g + Color.blue.g) / 2, (Color.red.b + Color.blue.b) / 2);
+        crystalColor = crystalMaterial.color;
+        Debug.Log($"{name}: {crystalColor.r}, {crystalColor.g}, {crystalColor.b}");
     }
 
-    void Update()
+    public Color ChangeColor(Color _addColor)
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            crystalColor.color = Color.red;
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            crystalColor.color = Color.blue;
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            crystalColor.color = customColor;
-        }
-
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            crystalColor.color = baseColor;
-            timer = 1f;
-        }
+        if (_addColor != Color.white)
+            return MixColors(_addColor, crystalColor);
+        else
+            return crystalColor;
     }
 
-    public void ChangeColor()
+    private Color MixColors(params Color[] _colors)
     {
-        crystalColor.color = customColor;
-    }
+        Color _result = new(0, 0, 0);
 
-    private void ChangeCustomColor()
-    {
-        customColor = new Color((baseColor.r + lightColor.r) / 2, (baseColor.g + lightColor.g) / 2, (baseColor.b + lightColor.b) / 2);
+        foreach (Color _c in _colors)
+            _result += _c;
+
+        Debug.Log(_result / _colors.Length);
+        return _result / _colors.Length;
     }
 }
