@@ -21,7 +21,7 @@ public class CrystalColor : MonoBehaviour
 
     private Color MixColors(params Color[] _colors)
     {
-        Color _result = new(0, 0, 0);
+        Color _result = new(0, 0, 0, 0);
 
         foreach (Color _c in _colors)
             _result += _c;
