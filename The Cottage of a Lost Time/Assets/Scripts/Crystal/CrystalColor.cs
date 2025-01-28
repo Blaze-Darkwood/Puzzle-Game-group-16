@@ -21,12 +21,13 @@ public class CrystalColor : MonoBehaviour
 
     private Color MixColors(params Color[] _colors)
     {
-        Color _result = new(0, 0, 0, 0);
+        /*Color _result = new(0, 0, 0, 0);
 
         foreach (Color _c in _colors)
             _result += _c;
 
         Debug.Log(_result / _colors.Length);
-        return _result / _colors.Length;
+        return _result / _colors.Length;*/
+        return Color.Lerp(_colors[0], _colors[1], .5f);
     }
 }
